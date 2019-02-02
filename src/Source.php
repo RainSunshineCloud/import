@@ -2,9 +2,8 @@
 namespace RainSunshineCloud;
 Trait Source 
 {
-
-	protected  	$stream_file_func = [];
-	protected   $source = null;
+	protected $source = null;
+	protected $line_set = ["\r\n",1024];
 
 	/**
 	 * [filePath description]
@@ -41,14 +40,27 @@ Trait Source
 		return $this;
 	}
 
-	public function getLine ($sept = "\r\n")
+	public function getLine ()
 	{
 		while(!feof($this->source)) {
-			yield stream_get_line($this->source,200,$sept);
+			yield stream_get_line($this->source,$this->line_set[1],$this->line_set[0]);
 		}
 
 		yield '';
 	}
+
+	/**
+	 * 设置行分隔符符和最大取值数量
+	 * @param [type]  $sept     [description]
+	 * @param integer $max_size [description]
+	 */
+	public function setSept($sept,$max_size = 1024)
+	{
+		$this->line_set = [$sept,$max_size];
+
+	}
+
+
 
 }
 
