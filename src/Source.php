@@ -57,7 +57,7 @@ Trait Source
 	public function setSept($sept,$max_size = 1024)
 	{
 		$this->line_set = [$sept,$max_size];
-
+		return $this;
 	}
 
 
